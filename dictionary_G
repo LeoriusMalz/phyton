@@ -1,0 +1,42 @@
+def is_number(str):
+    try:
+        float(str)
+        return True
+    except ValueError:
+        return False
+
+A = []
+k = 0
+force = 0
+
+A = list(map(str, input().split()))
+
+for x in range(len(A)):
+        if is_number(A[x]):
+                A[x] = float(A[x])
+
+if len(A) == 0:
+                force = 1
+
+while k < len(A) and force == 0:
+        if A[k] == '%' and k <= 1:
+                force = 1
+
+        elif A[k] == '#':
+                A[k] = sum(A[:k])
+                for i in range(k):
+                        A.pop(0)
+                k = 0
+
+        elif A[k] == '%':
+                A[k] = A[k-1]/100 * A[k-2]
+                A.pop(k-1)
+                A.pop(k-2)
+                k = 0
+
+        k += 1
+
+if force == 0:
+        print(A[-1])
+else:
+        print(0.0)
