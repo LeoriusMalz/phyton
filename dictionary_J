@@ -1,0 +1,35 @@
+def heapsort(A):
+    def mheap(A):
+        n = int((len(A) // 2) - 1)
+        for i in range(n, -1, -1):
+            max_heapify(A, i)
+
+    def max_heapify(A, i):
+        l = 2 * i + 1
+        r = 2 * i + 2 
+        if l < len(A) and A[l] > A[i]:
+            larg = l
+        else:
+            larg = i
+        if r < len(A) and A[r] > A[larg]:
+            larg = r
+        if larg != i:
+            A[i], A[larg] = A[larg], A[i]
+            max_heapify(A, larg)
+    
+    M = ""
+
+    mheap(A)
+    print(*A)
+
+    for x in range(len(A)-1):
+        mem = A[0]
+        A[0] = A[-1]
+        A[-1] = mem
+        M = str(A[-1:]) + M
+        A.pop(-1)
+        mheap(A)
+        print(*A, end=" ")
+        M = M.replace('[', "")
+        M = M.replace(']', " ")
+        print(M)
