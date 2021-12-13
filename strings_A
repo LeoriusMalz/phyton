@@ -1,0 +1,14 @@
+N = int(input())
+A = []
+for i in range(N):
+    A.append(int(input()))
+M = int(input())
+k = 0
+
+num = A[M]
+
+for c in A:
+    if c > num:
+        k += 1
+
+print(k)
