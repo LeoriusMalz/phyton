@@ -1,0 +1,4 @@
+def reverse_array(arr, N):
+    n = N//2
+    for i in range(n):
+        arr[i], arr[N-1-i] = arr[N-1-i], arr[i]
