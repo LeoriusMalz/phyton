@@ -1,0 +1,195 @@
+def print_a(A):
+    print('-'*len(A[0])*3)
+    for k in range(len(A)):
+        for i in range(len(A[0])):
+            print('{:>2d}'.format(A[k][i]), end=' ')
+        print('\n',end='')
+
+def input_a():
+    global Ver, Hor5, B
+
+    Ver, Hor5 = map(int, input().split())
+    B = []
+    
+    for i in range(Ver):
+        A = list(input().split(maxsplit=Hor5))
+        B.append(A)
+    for i in range(Ver):
+        for k in range(Hor5):
+            B[i][k] = int(B[i][k])
+
+def file_a(path):
+    global Ver, Hor5, B
+
+    f = open(path, 'r').read().split()
+    Ver = int(f[0])
+    Hor5 = int(f[1])
+    B = []
+    A = []
+    ln = 0
+    for i in range(Ver):
+        for k in range(ln,Hor5+ln):
+            A.append(int(f[k+2]))
+        B.append(A)
+        A = []
+        ln += Hor5
+
+def ul_enum(A,j):
+    Ver = len(A)
+    Hor5 = len(A[0])
+    for i in range(Ver):
+        for k in range(Hor5):
+            if A[i][k] == 0:
+                if i == 0 and k == 0:
+                    if A[i+1][k] == j or A[i][k+1] == j:
+                        A[i][k] = j
+                elif i == 0 and k == Hor5-1:
+                    if A[i+1][k] == j or A[i][k-1] == j:
+                        A[i][k] = j
+                elif i == Ver-1 and k == 0:
+                    if A[i-1][k] == j or A[i][k+1] == j:
+                        A[i][k] = j
+                elif i == Ver-1 and k == Hor5-1:
+                    if A[i-1][k] == j or A[i][k-1] == j:
+                        A[i][k] = j
+                elif i == 0 and k < Hor5-1 and k > 0:
+                    if A[i+1][k] == j or A[i][k-1] == j or A[i][k+1] == j:
+                        A[i][k] = j
+                elif i == Ver-1 and k < Hor5-1 and k > 0:
+                    if A[i-1][k] == j or A[i][k-1] == j or A[i][k+1] == j:
+                        A[i][k] = j
+                elif k == 0 and i < Ver-1 and i > 0:
+                    if A[i][k+1] == j or A[i-1][k] == j or A[i+1][k] == j:
+                        A[i][k] = j
+                elif k == Hor5-1 and i < Ver-1 and i > 0:
+                    if A[i][k-1] == j or A[i-1][k] == j or A[i+1][k] == j:
+                        A[i][k] = j
+                elif k > 0 and k < Hor5-1 and i < Ver-1 and i > 0:
+                    if A[i+1][k] == j or A[i-1][k] == j or A[i][k-1] == j or A[i][k+1] == j:
+                        A[i][k] = j
+
+def copy_a(B):
+    global A
+    A = []
+    for i in range(len(B)):
+        A.append(list(B[i]))
+
+input_a()
+#file_a('array')
+#print_a(B)
+
+#B1 = B[::]
+
+for i in range(Ver):
+    for k in range(Hor5):
+        if B[i][k] <= 0:
+            B[i][k] = str(abs(B[i][k]))
+        else:
+            B[i][k] = -1
+
+Alt = []
+
+for i in range(Ver):
+    for k in range(Hor5):
+        B[i][k] = int(B[i][k])
+    Alt.append(list(B[i]))
+
+Maxim = [max(c) for c in Alt]
+Max = max(Maxim)
+
+alt = []
+
+for i in range(Ver):
+    for k in range(Hor5):
+        alt.append(Alt[i][k]) 
+
+for i in range(Ver):
+    for k in range(Hor5):
+        if B[i][k] >= 0:
+            B[i][k] = 0
+
+m = 0
+
+for i in range(Ver):
+        for k in range(Hor5):
+            if B[i][k] == 0 and m == 0:
+                B[i][k] = 1
+                m += 1
+
+Nulls = 0
+for i in range(Ver):
+    Nulls += B[i].count(0)
+
+A = []
+C = []
+j = 1
+
+while Nulls != 0:
+    while B != A:
+        ul_enum(B,j)
+        copy_a(B)
+        ul_enum(B,j)
+    Nulls = 0
+    for i in range(Ver):
+        Nulls += B[i].count(0)
+    
+    j += 1
+    m = 0 
+     
+    for i in range(Ver):
+        for k in range(Hor5):
+            if B[i][k] == 0 and m == 0:
+                B[i][k] = j
+                m += 1
+
+Area = []
+
+Count = [max(c) for c in B]
+CNT = max(Count)
+
+Lake = []
+
+for i in range(Ver):
+    for k in range(Hor5):
+        Lake.append(B[i][k])
+        Area.append(B[i][k])
+
+Sqr = []
+st = list(sorted(list(set(Area)), key=lambda x: x))
+for c in st:
+    Sqr.append(Area.count(c))
+
+Sqr[0] = 0
+    
+for i in range(Ver):
+    for k in range(Hor5):        
+        if Alt[i][k] == Max:
+            MAX = Lake.count(B[i][k])
+
+Zip = list(zip(Area, alt))
+Zip = list(reversed(sorted(Zip, key=lambda x: x[0])))
+J = []
+S = 0
+k = Zip[0][0]
+for i in range(len(Zip)):
+    if Zip[i][0] == k:
+        S += Zip[i][1]
+    else:
+        k = k - 1
+        J.append(S)
+        S = 0
+        S += Zip[i][1]
+
+J = list(reversed(J))
+
+VAL = J[Sqr.index(max(Sqr))]
+
+#print_a(B)
+#print_a(Alt)
+print(CNT)
+print(MAX)
+#print(Zip)
+#print(J)
+#print(st)
+#print(Sqr)
+print(VAL)
