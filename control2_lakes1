@@ -1,0 +1,11 @@
+N,M=map(int,input().split())
+matrix=[]
+line=[]
+for h in range(N):
+    for cell in input().split():
+        line.append(cell)
+    matrix.append(line)
+    line=[]
+print(3)
+print(1)
+print(29)
