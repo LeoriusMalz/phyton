@@ -1,0 +1,11 @@
+mnozh={'a'}
+mnozh=mnozh-{'a'}
+files=list(input().split(' '))
+import os.path
+for i in range(len(files)):
+    if os.path.exists(files[i]):
+        file=open(files[i],'r').read().split()
+        for k in range(len(file)):
+            mnozh.add(file[k])
+mnozh=sorted(mnozh)
+print(*mnozh)
