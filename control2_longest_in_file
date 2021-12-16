@@ -1,0 +1,8 @@
+lenhgt=0
+file=open(str(input()),"r").read().split()
+for i in range(len(file)):
+    lenght=len(file[i])
+    if lenght>lenhgt:
+       word=file[i]
+       lenhgt=lenght
+print(word)
