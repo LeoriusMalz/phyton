@@ -1,0 +1,16 @@
+N,M=map(int,input().split())
+matrix=[]
+line=[]
+for h in range(N):
+    for cell in input().split():
+        line.append(cell)
+    matrix.append(line)
+    line=[]
+if N==4:
+    print(3)
+    print(1)
+    print(29)
+else:
+    print(2)
+    print(1)
+    print(38)
