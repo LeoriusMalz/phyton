@@ -7,9 +7,9 @@ while S != "=":
     S = str(input())
     
     Arr.append(S)
-    
+
 for i in range(len(Arr)):
-    if (Arr[i] != '-') and (Arr[i] != '=') and (Arr[i] != '+') and (Arr[i] != '-'):
+    if (Arr[i] != '-') and (Arr[i] != '=') and (Arr[i] != '+') and (Arr[i] != '*'):
         Arr[i] = int(Arr[i])
 
 while konec != len(Arr):
